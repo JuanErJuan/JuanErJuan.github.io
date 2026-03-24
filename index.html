@@ -6,7 +6,7 @@
     <title>Joan Garcia Pagès | Creative Developer & Designer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* =========================================
@@ -15,7 +15,8 @@
         :root {
             /* Colors principals */
             --bg-body: #0a0a0c;
-            --bg-card: #161619;
+            --bg-card: #121215;
+            --bg-glass: rgba(22, 22, 25, 0.6);
             --text-primary: #e0e0e6;
             --text-secondary: #a1a1aa;
             
@@ -26,7 +27,7 @@
             
             /* Detalls i ombres */
             --border: #2a2a30;
-            --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); /* Transició suau estil Apple */
+            --transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
             --ease: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -67,14 +68,14 @@
             position: relative;
         }
 
-        /* Elements de fons (Orbes de llum) */
-        .background-glow {
+        /* Elements de fons (Orbes i partícules) */
+        .background-visuals {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             overflow: hidden;
         }
 
@@ -83,7 +84,7 @@
             background: var(--accent-glow);
             border-radius: 50%;
             filter: blur(150px);
-            opacity: 0.15;
+            opacity: 0.1;
             animation: orbeFloat 20s infinite alternate var(--ease);
         }
 
@@ -94,6 +95,17 @@
         @keyframes orbeFloat {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        /* Fons de partícules de JS */
+        #particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
         }
 
         /* =========================================
@@ -114,12 +126,12 @@
         }
 
         /* =========================================
-           BOTONS AMB EFECTE GLOW AL HOVER
+           BOTONS AMB EFECTE GLOW
            ========================================= */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 15px 40px;
             background: transparent;
             border: 1px solid var(--border);
@@ -132,13 +144,13 @@
         }
 
         .btn:hover {
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15), 0 5px 15px rgba(157, 0, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.2), 0 5px 20px rgba(157, 0, 255, 0.2);
         }
 
         .btn-accent {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
         }
 
@@ -151,8 +163,8 @@
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 40px);
-            max-width: 800px;
-            background: rgba(22, 22, 25, 0.7);
+            max-width: 900px;
+            background: var(--bg-glass);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(42, 42, 48, 0.5);
             border-radius: 100px;
@@ -196,7 +208,7 @@
         }
 
         /* =========================================
-           SECCIÓ INICI (HERO)
+           SECCIÓ INICI (HERO) AMB ESCRIPTURA
            ========================================= */
         .hero {
             height: 100vh;
@@ -209,27 +221,32 @@
         }
 
         .hero h1 {
-            font-size: 8rem;
-            line-height: 0.85;
+            font-size: 7rem;
+            line-height: 0.9;
             margin-bottom: 20px;
             margin-top: -100px;
-            position: relative;
         }
 
-        .hero-title-highlight {
-            position: relative;
-            z-index: 1;
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--accent-blue);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .05em;
+            display: inline-block;
+            animation: 
+              typing 3s steps(30, end),
+              blink-caret .75s step-end infinite;
         }
 
-        .hero-title-highlight::after {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 3px;
-            bottom: 5px;
-            left: -10%;
-            background: var(--accent-glow);
-            border-radius: 100px;
+        @keyframes typing {
+          from { width: 0 }
+          to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+          from, to { border-color: transparent }
+          50% { border-color: var(--accent-blue); }
         }
 
         .hero h1 span.accent {
@@ -239,7 +256,7 @@
         .hero p {
             font-size: 1.5rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 700px;
             font-weight: 300;
             margin-bottom: 50px;
         }
@@ -264,7 +281,7 @@
         
         .bento-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 1.5fr;
             grid-template-rows: auto auto;
             gap: 20px;
         }
@@ -283,18 +300,19 @@
         }
 
         .bento-intro {
-            grid-column: 1;
+            grid-column: 2;
             grid-row: 1 / 3;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .bento-intro h3 { color: #fff; font-size: 2rem; }
-        .bento-intro p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; max-width: 90%;}
+        .bento-intro h3 { color: #fff; font-size: 2.2rem; margin-bottom: 10px;}
+        .bento-intro h4 { color: var(--accent-blue); font-weight: 400; font-size: 1.1rem; margin-bottom: 20px;}
+        .bento-intro p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px; max-width: 90%;}
 
         .bento-stack {
-            grid-column: 2;
+            grid-column: 1;
             grid-row: 1;
         }
 
@@ -317,7 +335,7 @@
 
         .stack-item i {
             display: block;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 10px;
             background: var(--accent-glow);
             -webkit-background-clip: text;
@@ -326,7 +344,7 @@
         }
 
         .bento-ciutat {
-            grid-column: 2;
+            grid-column: 1;
             grid-row: 2;
             display: flex;
             align-items: center;
@@ -338,7 +356,7 @@
         }
 
         .ciutat-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             background: var(--accent-glow);
             -webkit-background-clip: text;
             background-clip: text;
@@ -369,11 +387,11 @@
         .projecte-card:hover {
             border-color: rgba(255, 255, 255, 0.1);
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
         }
 
         .projecte-imatge {
-            height: 350px;
+            height: 380px;
             background-size: cover;
             background-position: center;
             transition: var(--transition);
@@ -386,7 +404,7 @@
         .projecte-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(0deg, #161619 0%, rgba(22, 22, 25, 0) 100%);
+            background: linear-gradient(0deg, #121215 0%, rgba(18, 18, 21, 0) 100%);
         }
 
         .projecte-detalls {
@@ -398,8 +416,8 @@
             z-index: 1;
         }
 
-        .projecte-detalls h3 { color: #fff; font-size: 1.8rem; }
-        .projecte-detalls p { color: var(--text-secondary); margin-bottom: 20px; font-size: 1rem; max-width: 80%; }
+        .projecte-detalls h3 { color: #fff; font-size: 1.8rem; margin-bottom: 10px;}
+        .projecte-detalls p { color: var(--text-secondary); margin-bottom: 25px; font-size: 1rem; max-width: 80%; }
 
         .projecte-tags {
             display: flex;
@@ -407,19 +425,110 @@
         }
 
         .tag {
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 100px;
             background: rgba(255,255,255,0.05);
+            border: 1px solid transparent;
             color: #fff;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .tag.accent {
+            background: rgba(0, 242, 254, 0.05);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* =========================================
+           SECCIÓ JS: EL MEU LABORATORI DE CODI
+           ========================================= */
+        .laboratori {
+            background-color: #0d0d10;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .laboratori h2 { text-align: center; color: #fff; margin-bottom: 15px; font-size: 3rem;}
+        .laboratori h3 { text-align: center; color: var(--text-secondary); margin-bottom: 80px; font-size: 1.2rem; font-weight: 400;}
+
+        .code-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .code-snippet {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .code-snippet:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .code-header {
+            background-color: rgba(255,255,255,0.02);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .code-type {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            background: rgba(255,255,255,0.05);
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
+
+        .code-body {
+            padding: 20px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-snippet:hover .code-body {
+            overflow: auto;
+        }
+
+        .code-body pre {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 0.8rem;
+            color: #d1d1d1;
+            white-space: pre-wrap;
+        }
+
+        .code-body::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .code-body::-webkit-scrollbar-thumb {
+            background: #2a2a30;
+            border-radius: 10px;
         }
 
         /* =========================================
            SECCIÓ CONTACTE (MINIMALISTA i ATREVIT)
            ========================================= */
         .contacte { text-align: center; padding-top: 150px; padding-bottom: 150px;}
-        .contacte h2 { font-size: 5rem; max-width: 800px; margin: 0 auto 30px; line-height: 1;}
+        .contacte h2 { font-size: 5rem; max-width: 900px; margin: 0 auto 30px; line-height: 1;}
         .contacte p { font-size: 1.4rem; color: var(--text-secondary); margin-bottom: 80px; }
         
         .contact-email {
@@ -428,7 +537,7 @@
             color: #fff;
             padding-bottom: 5px;
             position: relative;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             display: inline-block;
         }
 
@@ -467,7 +576,7 @@
             background-color: #fff;
             color: #000;
             border-color: #fff;
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.15) rotate(5deg);
         }
 
         /* =========================================
@@ -475,7 +584,7 @@
            ========================================= */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             border-top: 1px solid var(--border);
             font-size: 0.8rem;
             color: var(--text-secondary);
@@ -492,6 +601,7 @@
             .bento-intro { grid-column: 1; grid-row: 1;}
             .bento-stack { grid-column: 1; grid-row: 2; }
             .bento-ciutat { grid-column: 1; grid-row: 3; }
+            .code-grid { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -501,12 +611,15 @@
             .hero p { font-size: 1.1rem; }
             .contacte h2 { font-size: 3rem; }
             .contact-email { font-size: 1.5rem; }
+            .code-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="background-glow">
+    <canvas id="particle-bg"></canvas>
+
+    <div class="background-visuals">
         <div class="orbe orbe-1"></div>
         <div class="orbe orbe-2"></div>
         <div class="orbe orbe-3"></div>
@@ -516,7 +629,7 @@
         <nav>
             <div class="logo">JOAN<span>.</span>GGP</div>
             <ul class="nav-links">
-                <li><a href="#inici">Inici</a></li>
+                <li><a href="#inici" class="active">Inici</a></li>
                 <li><a href="#sobre">Sobre mi</a></li>
                 <li><a href="#projectes">Projectes</a></li>
                 <li><a href="#contacte">Contacte</a></li>
@@ -526,15 +639,15 @@
 
     <section id="inici" class="hero">
         <h1>
-            <span class="accent">Crafting</span><br>
-            <span class="gradient-text hero-title-highlight">Digital</span><br>
-            <span class="accent">Futures</span>
+            <span class="accent">Code</span><br>
+            <span class="gradient-text typewriter">That Transforms</span><br>
+            <span class="accent">Reality</span>
         </h1>
-        <p>Joan Garcia Pagès. Desenvolupador Creatiu & Dissenyador a [La teva Ciutat]. Tradueixo idees complexes en codi net i experiències visuals increïbles.</p>
-        <a href="#contacte" class="btn btn-accent">T'ajudo amb el teu projecte? &rarr;</a>
+        <p>Joan Garcia Pagès. Desenvolupador Creatiu & Dissenyador basat a Girona. Creant el pont entre el codi net i l'experiència d'usuari excepcional.</p>
+        <a href="#contacte" class="btn btn-accent">Vols treballar plegats? &rarr;</a>
         
         <div class="hero-scroll-indicator">
-            Fes scroll per descobrir <i class="fas fa-arrow-down"></i>
+            Descobreix més <i class="fas fa-arrow-down"></i>
         </div>
     </section>
 
@@ -544,8 +657,9 @@
         <div class="bento-grid">
             <div class="bento-card bento-intro">
                 <h3>Hola, sóc en Joan.</h3>
-                <p>M'apassiona explorar el límit on el disseny i el desenvolupament es troben. Crec en la potència de les interfícies intuïtives i la narrativa visual, tot impulsat per un codi robust i eficient. Sóc perfeccionista per naturalesa i m'encanta enfrontar-me a reptes que em facin créixer professionalment.</p>
-                <a href="#" class="btn btn-accent" style="width:fit-content; border:0; padding:10px 20px; font-size:0.9rem;"> <i class="fas fa-file-download"></i> Descarrega CV</a>
+                <h4>Desenvolupador Full-Stack & Creative UI Designer</h4>
+                <p>Crec en la potència de les interfícies intuitives impulsades per un codi robust i eficient. Sóc perfeccionista per naturalesa i m'encanta enfrontar-me a reptes que em facin creixer professionalment, explorant sempre noves tecnologies.</p>
+                <a href="#" class="btn btn-accent" style="width:fit-content; border:0; padding:12px 25px; font-size:0.9rem;"> <i class="fas fa-file-download"></i> Descarrega el meu CV</a>
             </div>
 
             <div class="bento-card bento-stack">
@@ -559,7 +673,7 @@
 
             <div class="bento-card bento-ciutat">
                 <i class="fas fa-map-marker-alt ciutat-icon"></i>
-                <div>Basat a <span class="gradient-text">Girona</span>. Disponible per a treball en remot a nivell global.</div>
+                <div>Basat a <span class="gradient-text">Girona</span>. Disponible per a treball remot globalment.</div>
             </div>
         </div>
     </section>
@@ -573,9 +687,9 @@
                 <div class="projecte-overlay"></div>
                 <div class="projecte-detalls">
                     <h3>Atles Digital</h3>
-                    <p>Una plataforma educativa interactiva per explorar dades geogràfiques complexes de forma visual.</p>
+                    <p>Una plataforma educativa interactiva per explorar dades geogràfiques complexes.</p>
                     <div class="projecte-tags">
-                        <span class="tag">React</span>
+                        <span class="tag accent">React</span>
                         <span class="tag">D3.js</span>
                         <span class="tag">Next.js</span>
                     </div>
@@ -587,43 +701,23 @@
                 <div class="projecte-overlay"></div>
                 <div class="projecte-detalls">
                     <h3>Plataforma E-commerce</h3>
-                    <p>Disseny i desenvolupament d'una botiga online moderna amb un sistema de gestió avançat.</p>
+                    <p>Disseny i desenvolupament d'una botiga online moderna amb gestió avançada.</p>
                     <div class="projecte-tags">
-                        <span class="tag">Vue.js</span>
+                        <span class="tag accent">Vue.js</span>
                         <span class="tag">Laravel</span>
                         <span class="tag">PostgreSQL</span>
                     </div>
                 </div>
             </div>
-
-            <div class="projecte-card">
-                <div class="projecte-imatge" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600');"></div>
-                <div class="projecte-overlay"></div>
-                <div class="projecte-detalls">
-                    <h3>App de Panell d'Administració</h3>
-                    <p>Panell d'anàlisi de dades en temps real amb interfície minimalista i intuïtiva.</p>
-                    <div class="projecte-tags">
-                        <span class="tag">Angular</span>
-                        <span class="tag">Firebase</span>
-                        <span class="tag">Sass</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="projecte-card">
-                <div class="projecte-imatge" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=600');"></div>
-                <div class="projecte-overlay"></div>
-                <div class="projecte-detalls">
-                    <h3>Plataforma de Subscripció</h3>
-                    <p>Sistema complet de subscripció per a una plataforma de continguts de formació online.</p>
-                    <div class="projecte-tags">
-                        <span class="tag">Stripe</span>
-                        <span class="tag">MERN Stack</span>
-                        <span class="tag">Figma</span>
-                    </div>
-                </div>
-            </div>
         </div>
+    </section>
+
+    <section id="laboratori" class="laboratori">
+        <h2>El meu Laboratori de Codi</h2>
+        <h3>Explorant fragments d'habilitat i experimentació</h3>
+        
+        <div class="code-grid" id="code-container">
+            </div>
     </section>
 
     <section id="contacte" class="contacte">
@@ -640,8 +734,152 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Joan Garcia Pagès. Fet amb <i class="fas fa-heart" style="color:#ff6b6b"></i> a Catalunya. Tots els drets reservats.</p>
+        <p>&copy; 2026 Joan Garcia Pagès. Fet amb <i class="fas fa-heart" style="color:#ff6b6b"></i> a Girona. Tots els drets reservats.</p>
     </footer>
+
+    <script>
+        /* =========================================
+           1. SISTEMA DE PARTÍCULES DE FONS (JS CANVAS)
+           ========================================= */
+        const canvas = document.getElementById('particle-bg');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Ajustar canvas a la finestra
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouse = {
+            x: null,
+            y: null,
+            radius: (canvas.height/80) * (canvas.width/80)
+        }
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Crear classe partícula
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            // Mètode per dibuixar
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            // Mètode per actualitzar
+            update() {
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                // Comprovar col·lisió amb ratolí
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10){ this.x += 10; }
+                    if (mouse.x > this.x && this.x > this.size * 10){ this.x -= 10; }
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10){ this.y += 10; }
+                    if (mouse.y > this.y && this.y > this.size * 10){ this.y -= 10; }
+                }
+                // Moure
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Inicialitzar array de partícules
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i=0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.5;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.5) - 0.25;
+                let directionY = (Math.random() * 0.5) - 0.25;
+                let color = 'rgba(255, 255, 255, 0.5)';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Bucle d'animació
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0,0,innerWidth, innerHeight);
+            for (let i=0; i < particlesArray.length; i++){
+                particlesArray[i].update();
+            }
+        }
+        init();
+        animate();
+
+        // Resoldre el canvas si la finestra canvia de mida
+        window.addEventListener('resize', function(){
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            mouse.radius = ((canvas.height/80) * (canvas.width/80));
+            init();
+        });
+
+        /* =========================================
+           2. CÀRREGA DINÀMICA DEL LABORATORI DE CODI (JS)
+           ========================================= */
+        const codiSnippets = [
+            { title: "Sass Color Mixer", type: "CSS", codi: "@mixin make-gradient($color1, $color2) {\n  background: linear-gradient(135deg, $color1 0%, $color2 100%);\n  border-radius: 10px;\n  box-shadow: 0 4px 10px rgba($color1, 0.2);\n}\n.element { @include make-gradient(#00f2fe, #9d00ff); }" },
+            { title: "React Scroll Trigger", type: "JSX", codi: "const ScrollAware = () => {\n  useEffect(() => {\n    const observer = new IntersectionObserver((entries) => {\n      if(entries[0].isIntersecting) animateIn();\n    });\n    observer.observe(elementRef.current);\n  }, []);\n  return <div ref={elementRef}>El meu element</div>\n}" },
+            { title: "JS Date Girona", type: "JS", codi: "function obteHoraGirona() {\n  const data = new Date();\n  const opcions = { hour:'2-digit', minute:'2-digit', second:'2-digit' };\n  const horaStr = data.toLocaleTimeString('ca-ES', opcions);\n  console.log('L\\'hora a Girona és: '+ horaStr);\n}" }
+        ];
+
+        const codeContainer = document.getElementById('code-container');
+
+        codiSnippets.forEach(snippet => {
+            // Crear elements
+            const codeCard = document.createElement('div');
+            codeCard.className = 'code-snippet';
+
+            const header = document.createElement('div');
+            header.className = 'code-header';
+            header.innerHTML = `<span class="code-title">${snippet.title}</span><span class="code-type">${snippet.type}</span>`;
+
+            const body = document.createElement('div');
+            body.className = 'code-body';
+            body.innerHTML = `<pre><code>${snippet.codi}</code></pre>`;
+
+            // Unir elements i afegir al contenidor
+            codeCard.appendChild(header);
+            codeCard.appendChild(body);
+            codeContainer.appendChild(codeCard);
+        });
+
+        /* =========================================
+           3. GESTIÓ ACTIVA DEL MENÚ (JS)
+           ========================================= */
+        const navLinksArray = document.querySelectorAll('.nav-links a');
+        
+        navLinksArray.forEach(link => {
+            link.addEventListener('click', function() {
+                // Eliminar 'active' de tots els enllaços
+                navLinksArray.forEach(otherLink => otherLink.classList.remove('active'));
+                // Afegir 'active' al clicat
+                this.classList.add('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
