@@ -1,1049 +1,212 @@
 <!DOCTYPE html>
-<html lang="ca" data-theme="dark">
+<html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joan Garcia Pagès | Creative Developer & UI/UX Designer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* =========================================
-           VARIABLES DE COLOR I TEMES (CSS Variables)
-           ========================================= */
-        :root {
-            /* Definició per defecte (Tema Fosc "Premium") */
-            --bg-body: #0a0a0c;
-            --bg-card: #121215;
-            --bg-bento: #161619;
-            --bg-glass: rgba(22, 22, 25, 0.7);
-            --text-primary: #e0e0e6;
-            --text-secondary: #a1a1aa;
-            --border: #2a2a30;
-            --code-bg: #1a1a1e;
-            
-            /* Accents elèctrics per a fosc */
-            --accent-1: #00f2fe; /* Cian */
-            --accent-2: #9d00ff; /* Morat */
-            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #9d00ff 100%);
-            --btn-bg: rgba(255, 255, 255, 0.05);
-            
-            /* Altres */
-            --transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            --ease: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Definició de colors per al TEMA CLAR */
-        [data-theme="light"] {
-            --bg-body: #f9fafb;
-            --bg-card: #ffffff;
-            --bg-bento: #f3f4f6;
-            --bg-glass: rgba(255, 255, 255, 0.8);
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --border: #e5e7eb;
-            --code-bg: #f1f1f4;
-            
-            /* Accents més saturats per a clar */
-            --accent-1: #2563eb; /* Blau Reial */
-            --accent-2: #7c3aed; /* Violeta */
-            --accent-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            --btn-bg: rgba(0, 0, 0, 0.03);
-        }
-
-        /* =========================================
-           RESSET GLOBAL
-           ========================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        body {
-            line-height: 1.7;
-            position: relative;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        ul { list-style: none; }
-
-        section {
-            padding: 100px 20px;
-            max-width: 1300px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Fons de partícules de JS */
-        #particle-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-            pointer-events: none; /* No interfereix amb els clics */
-        }
-
-        /* =========================================
-           TÍTOLS I TEXT destacat
-           ========================================= */
-        h1, h2, h3, h4 {
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
-
-        h2 { font-size: 3rem; text-align: center; margin-bottom: 60px; }
-        h3 { font-size: 1.8rem; color: var(--text-primary); }
-
-        .gradient-text {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline;
-        }
-
-        /* =========================================
-           BOTONS AMB EFECTE GLOW
-           ========================================= */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 42px;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-weight: 700;
-            color: var(--text-primary);
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            border-color: rgba(127, 127, 127, 0.4);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.15), 0 5px 20px rgba(157, 0, 255, 0.15);
-        }
-
-        .btn-accent {
-            background: var(--btn-bg);
-            border-color: transparent;
-            color: #fff;
-        }
-        [data-theme="light"] .btn-accent { color: var(--accent-2); border: 1px solid var(--accent-2);}
-
-        /* =========================================
-           CAPÇALERA I NAVEGACIÓ (AMB SELECTOR TEMES)
-           ========================================= */
-        header {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 40px);
-            max-width: 1000px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            z-index: 1000;
-            padding: 10px 15px;
-            transition: top 0.3s ease, background-color 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 900;
-            font-size: 1.4rem;
-            color: var(--text-primary);
-            padding-left: 15px;
-        }
-
-        .logo span { color: var(--accent-1); }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 5px;
-        }
-
-        .nav-links a {
-            padding: 10px 20px;
-            border-radius: 100px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            background: var(--btn-bg);
-            color: var(--text-primary);
-        }
-
-        /* Botó Selector de Tema */
-        #theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        #theme-toggle:hover {
-            background: var(--btn-bg);
-            color: var(--text-primary);
-        }
-
-        /* =========================================
-           SECCIÓ INICI (HERO) - ESPAIAT EXTRA
-           ========================================= */
-        .hero-spacer {
-            height: 120px; /* Espai sota el menú fix */
-        }
-
-        .hero {
-            height: calc(100vh - 120px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding-top: 0;
-        }
-
-        .hero h1 {
-            font-size: 6.5rem;
-            line-height: 0.9;
-            margin-bottom: 25px;
-        }
-
-        .typewriter {
-            overflow: hidden;
-            border-right: .10em solid var(--accent-1);
-            white-space: nowrap;
-            letter-spacing: .05em;
-            display: inline-block;
-            animation: typing 3.5s steps(35, end), blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-1); } }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            font-weight: 300;
-            margin-bottom: 60px;
-        }
-
-        /* =========================================
-           SECCIÓ SOBRE MI (BENTO)
-           ========================================= */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            grid-template-rows: auto auto;
-            gap: 25px;
-        }
-
-        .bento-card {
-            background-color: var(--bg-bento);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 50px;
-            transition: var(--transition);
-        }
-
-        .bento-card:hover {
-            border-color: rgba(127, 127, 127, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .bento-intro {
-            grid-column: 2;
-            grid-row: 1 / 3;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .bento-intro h3 { color: var(--text-primary); font-size: 2.5rem; }
-        .bento-intro h4 { color: var(--accent-1); font-weight: 500; font-size: 1.2rem; margin-bottom: 25px;}
-        .bento-intro p { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 35px;}
-
-        .stack-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .stack-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .stack-item i {
-            display: block;
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .bento-ciutat {
-            grid-column: 1;
-            grid-row: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .ciutat-icon {
-            font-size: 3.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-right: 25px;
-        }
-
-        /* =========================================
-           NOVA SECCIÓ: QUÈ FAIG (SERVEIS)
-           ========================================= */
-        .serveis-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .servei-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            transition: var(--transition);
-        }
-
-        .servei-card:hover {
-            border-color: var(--accent-1);
-            transform: translateY(-5px);
-        }
-
-        .servei-icon {
-            font-size: 2.5rem;
-            color: var(--accent-1);
-            margin-bottom: 25px;
-        }
-
-        .servei-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* =========================================
-           NOVA SECCIÓ: TRAJECTÒRIA (TIMELINE)
-           ========================================= */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-left: 40px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 10px;
-            width: 2px;
-            height: 100%;
-            background: var(--border);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 50px;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            top: 5px;
-            left: -38px;
-            width: 18px;
-            height: 18px;
-            background: var(--bg-body);
-            border: 3px solid var(--accent-2);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 25px;
-        }
-
-        .timeline-data {
-            font-size: 0.85rem;
-            color: var(--accent-2);
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .timeline-titol { color: var(--text-primary); font-size: 1.2rem; margin-bottom: 5px; }
-        .timeline-lloc { color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; }
-
-        /* =========================================
-           SECCIÓ PROJECTES (AMB MÉS CONTINGUT)
-           ========================================= */
-        .grid-projectes {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .projecte-card {
-            background-color: var(--bg-card);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .projecte-card:hover {
-            border-color: rgba(127, 127, 127, 0.2);
-            transform: translateY(-10px);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.5);
-        }
-
-        .projecte-imatge {
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            transition: var(--transition);
-        }
-
-        .projecte-card:hover .projecte-imatge { transform: scale(1.05); }
-
-        .projecte-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, var(--bg-card) 0%, rgba(18, 18, 21, 0) 100%);
-        }
-
-        .projecte-detalls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 40px;
-            z-index: 1;
-        }
-
-        .projecte-detalls h3 { color: var(--text-primary); font-size: 2rem; }
-        .projecte-detalls p { color: var(--text-secondary); margin-bottom: 25px; max-width: 80%; }
-
-        .projecte-tags { display: flex; gap: 10px; flex-wrap: wrap; }
-
-        .tag {
-            padding: 7px 20px;
-            border-radius: 100px;
-            background: rgba(127, 127, 127, 0.05);
-            border: 1px solid transparent;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-        }
-
-        .tag.accent {
-            background: rgba(0, 242, 254, 0.03);
-            border-color: rgba(0, 242, 254, 0.2);
-            color: var(--accent-1);
-        }
-        [data-theme="light"] .tag.accent { background: rgba(37, 99, 235, 0.05); border-color: rgba(37, 99, 235, 0.2); }
-
-        /* =========================================
-           NOVA SECCIÓ: TESTIMONIS
-           ========================================= */
-        .testimonis-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .testimoni-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-        }
-
-        .testimoni-text {
-            color: var(--text-secondary);
-            font-style: italic;
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        .testimoni-text::before { content: '“'; font-size: 4rem; color: var(--accent-1); position: absolute; top: -20px; left: -25px; opacity: 0.3; }
-
-        .testimoni-autor {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .autor-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--border);
-        }
-
-        .autor-info h5 { color: var(--text-primary); font-weight: 700; }
-        .autor-info p { color: var(--accent-1); font-size: 0.85rem; }
-
-        /* =========================================
-           SECCIÓ JS: LABORATORI
-           ========================================= */
-        .laboratori { background-color: var(--bg-bento); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .laboratori h3 { text-align: center; color: var(--text-secondary); margin-bottom: 80px; font-size: 1.3rem; font-weight: 400;}
-
-        .code-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-        .code-snippet {
-            background-color: var(--bg-card);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .code-snippet:hover { border-color: var(--accent-1); transform: scale(1.02); }
-
-        .code-header {
-            background-color: var(--code-bg);
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .code-title { color: var(--text-primary); font-weight: 700; }
-        .code-type { font-size: 0.7rem; color: var(--text-secondary); font-weight: 700; background: var(--btn-bg); padding: 4px 10px; border-radius: 100px; }
-
-        .code-body { padding: 20px; height: 200px; overflow: auto; background-color: var(--code-bg);}
-        .code-body pre { font-family: 'Source Code Pro', monospace; font-size: 0.8rem; color: var(--text-primary); white-space: pre-wrap; }
-
-        /* =========================================
-           SECCIÓ CONTACTE (AMB MÉS IMPACTE)
-           ========================================= */
-        .contacte { text-align: center; padding-top: 150px; padding-bottom: 150px;}
-        .contacte h2 { font-size: 5rem; max-width: 900px; margin: 0 auto 30px; line-height: 1;}
-        .contacte p { font-size: 1.5rem; color: var(--text-secondary); margin-bottom: 80px; font-weight: 300; }
-        
-        .contact-email {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            position: relative;
-            margin-bottom: 70px;
-            display: inline-block;
-        }
-
-        .contact-email::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent-gradient);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .contact-email:hover::after { transform: scaleX(1); }
-
-        .contact-links { display: flex; justify-content: center; gap: 25px; }
-
-        .social-link {
-            font-size: 1.6rem;
-            padding: 22px;
-            background: var(--bg-card);
-            border-radius: 18px;
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        .social-link:hover {
-            background-color: var(--text-primary);
-            color: var(--bg-body);
-            border-color: var(--text-primary);
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        /* =========================================
-           PEU DE PÀGINA
-           ========================================= */
-        footer {
-            text-align: center;
-            padding: 50px;
-            border-top: 1px solid var(--border);
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            background: #000;
-        }
-        [data-theme="light"] footer { background: #f3f4f6; color: #6b7280; }
-
-        /* =========================================
-           RESPONSIVE (ADAPTACIÓ MÒBILS)
-           ========================================= */
-        @media (max-width: 1200px) {
-            .hero h1 { font-size: 5rem; }
-            .serveis-grid, .code-grid { grid-template-columns: 1fr 1fr; }
-        }
-
-        @media (max-width: 1024px) {
-            h2 { font-size: 2.5rem; }
-            .grid-projectes, .bento-grid, .testimonis-grid { grid-template-columns: 1fr; }
-            .bento-intro { grid-column: 1; grid-row: 1;}
-            .bento-stack { grid-column: 1; grid-row: 2; }
-            .bento-ciutat { grid-column: 1; grid-row: 3; padding: 30px;}
-            .projecte-imatge { height: 300px; }
-        }
-
-        @media (max-width: 768px) {
-            header { max-width: calc(100% - 20px); top: 10px; border-radius: 20px; padding: 10px;}
-            .nav-links { display: none; } /* Amaguem menú en mòbil per simplicitat */
-            .hero h1 { font-size: 3.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .contacte h2 { font-size: 3rem; }
-            .contact-email { font-size: 1.6rem; }
-            .serveis-grid, .code-grid { grid-template-columns: 1fr; }
-            .bento-card { padding: 30px; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV - Joan Garcia Pagès</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: #111827;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #111827;
+      color: #94a3b8;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #334155;
+      padding: 5px 10px;
+      margin: 5px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: #38bdf8;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #0f172a;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+  </style>
 </head>
 <body>
 
-    <canvas id="particle-bg"></canvas>
+<header>
+  <h1>Joan Garcia Pagès</h1>
+  <p>Programador Web | Desenvolupador Full Stack en formació</p>
+</header>
 
-    <header>
-        <nav>
-            <div class="logo">JOAN<span>.</span>GGP</div>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#inici" class="active">Inici</a></li>
-                    <li><a href="#sobre">Sobre mi</a></li>
-                    <li><a href="#projectes">Projectes</a></li>
-                    <li><a href="#contacte">Contacte</a></li>
-                </ul>
-                <button id="theme-toggle" title="Canvia el tema">
-                    <i class="fas fa-moon"></i> </button>
-            </div>
-        </nav>
-    </header>
+<nav>
+  <a href="#sobre-mi">Sobre mi</a>
+  <a href="#experiencia">Experiència</a>
+  <a href="#educacio">Educació</a>
+  <a href="#skills">Skills</a>
+  <a href="#contacte">Contacte</a>
+</nav>
 
-    <div class="hero-spacer"></div>
+<section id="sobre-mi">
+  <h2>Sobre mi</h2>
+  <div class="card">
+    <p>
+      Soc en <strong>Joan Garcia Pagès</strong>, un apassionat del desenvolupament web i la tecnologia.
+      Em considero una persona curiosa, autodidacta i amb ganes constants d’aprendre noves tecnologies.
+    </p>
+    <p>
+      M’agrada construir aplicacions útils, optimitzar processos i treballar en equip en entorns àgils.
+    </p>
+  </div>
+</section>
 
-    <section id="inici" class="hero">
-        <h1>
-            <span class="gradient-text typewriter">Crafting Digital</span><br>
-            <span>Experiences</span>
-        </h1>
-        <p>Joan Garcia Pagès. Creative Developer & UI/UX Designer basat a Girona. Tradueixo visions complexes en codi net, elegant i orientat a l'usuari.</p>
-        <a href="#contacte" class="btn btn-accent">Parlem del teu projecte &rarr;</a>
-        
-        <div class="hero-scroll-indicator">
-            Fes scroll per descobrir <i class="fas fa-arrow-down"></i>
-        </div>
-    </section>
+<section id="experiencia">
+  <h2>Experiència</h2>
+  <div class="card">
+    <h3>Esolvo - Programador Web</h3>
+    <p><em>2,5 anys d’experiència</em></p>
+    <p>
+      Desenvolupament i manteniment d’aplicacions web, treballant amb tecnologies modernes i
+      col·laborant amb equips multidisciplinaris.
+    </p>
+    <div>
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">PHP</span>
+      <span class="tag">MySQL</span>
+    </div>
+  </div>
+</section>
 
-    <section id="sobre" class="sobre-mi">
-        <h2>Un cop d'ull a mi</h2>
-        
-        <div class="bento-grid">
-            <div class="bento-card bento-intro">
-                <h3>Hola, sóc en Joan.</h3>
-                <h4>Creative Full-Stack Developer</h4>
-                <p>Amb una passió dual pel codi i el disseny visual, m'especialitzo en construir productes digitals complets. Des de la conceptualització i el disseny d'interfícies (UI) fins al desenvolupament robust del frontend i backend. Crec en la tecnologia que és elegant per fora i potent per dins.</p>
-                <a href="#" class="btn btn-accent" style="width:fit-content; padding:12px 30px; font-size:0.9rem;"> <i class="fas fa-file-download"></i> Descarrega CV</a>
-            </div>
+<section id="educacio">
+  <h2>Educació</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>CFGS DAM</h3>
+      <p>La Salle Girona</p>
+      <p>Formació en desenvolupament d’aplicacions multiplataforma.</p>
+    </div>
 
-            <div class="bento-card bento-stack">
-                <ul class="stack-list">
-                    <li class="stack-item"><i class="fab fa-react"></i> React / Next.js</li>
-                    <li class="stack-item"><i class="fab fa-node-js"></i> Node.js</li>
-                    <li class="stack-item"><i class="fab fa-figma"></i> Figma UI/UX</li>
-                    <li class="stack-item"><i class="fab fa-aws"></i> AWS / Cloud</li>
-                </ul>
-            </div>
+    <div class="card">
+      <h3>CFGS DAW (actualment)</h3>
+      <p>Formació en curs</p>
+      <p>Especialització en desenvolupament d’aplicacions web modernes.</p>
+    </div>
+  </div>
+</section>
 
-            <div class="bento-card bento-ciutat">
-                <i class="fas fa-map-marker-alt ciutat-icon"></i>
-                <div>Basat a <span class="gradient-text">Girona</span>. Disponible per a col·laboracions globals.</div>
-            </div>
-        </div>
-    </section>
+<section id="skills">
+  <h2>Habilitats</h2>
+  <div class="card">
+    <span class="tag">Frontend</span>
+    <span class="tag">Backend</span>
+    <span class="tag">Responsive Design</span>
+    <span class="tag">Git</span>
+    <span class="tag">APIs REST</span>
+    <span class="tag">Treball en equip</span>
+    <span class="tag">Resolució de problemes</span>
+  </div>
+</section>
 
-    <section id="serveis" class="serveis">
-        <h2>Com puc ajudar-te</h2>
-        <div class="serveis-grid">
-            <div class="servei-card">
-                <i class="fas fa-pencil-ruler servei-icon"></i>
-                <h3>Disseny UI/UX</h3>
-                <p>Conceptualització, wireframing, prototipat interactiu i disseny d'interfícies visuals elegants centrades en l'experiència de l'usuari.</p>
-            </div>
-            <div class="servei-card">
-                <i class="fas fa-code servei-icon"></i>
-                <h3>Frontend Dev</h3>
-                <p>Desenvolupament d'aplicacions web modernes, ràpides i 'responsive' utilitzant React, Vue o Next.js amb codi net i eficient.</p>
-            </div>
-            <div class="servei-card">
-                <i class="fas fa-server servei-icon"></i>
-                <h3>Backend & APIs</h3>
-                <p>Construcció d'arquitectures de servidor escalables, disseny de bases de dades i desenvolupament d'APIs robustes amb Node.js o Python.</p>
-            </div>
-        </div>
-    </section>
+<section id="contacte">
+  <h2>Contacte</h2>
+  <div class="card">
+    <p>Si vols contactar amb mi, pots fer-ho a través del correu o LinkedIn.</p>
+    <button onclick="mostrarMissatge()">Mostrar missatge</button>
+    <p id="msg" style="margin-top:10px;"></p>
+  </div>
+</section>
 
-    <section id="trajectoria" class="trajectoria">
-        <h2>La meva trajectòria</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-data">2022 - Actualitat</p>
-                    <h4 class="timeline-titol">Senior Creative Developer</h4>
-                    <p class="timeline-lloc">TechNova Solutions, Girona</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-data">2019 - 2022</p>
-                    <h4 class="timeline-titol">Full-Stack Developer</h4>
-                    <p class="timeline-lloc">PixelPerfect Agency, Barcelona</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-data">2018 - 2019</p>
-                    <h4 class="timeline-titol">Màster en Disseny UI/UX</h4>
-                    <p class="timeline-lloc">Elisava, Barcelona</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<footer>
+  <p>© 2026 Joan Garcia Pagès - Currículum online</p>
+</footer>
 
-    <section id="projectes" class="projectes">
-        <h2>Projectes Destacats</h2>
-        
-        <div class="grid-projectes">
-            <div class="projecte-card">
-                <div class="projecte-imatge" style="background-image: url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800');"></div>
-                <div class="projecte-overlay"></div>
-                <div class="projecte-detalls">
-                    <h3>Atles Digital v2</h3>
-                    <p>Plataforma interactiva d'anàlisi de dades geogràfiques en temps real.</p>
-                    <div class="projecte-tags">
-                        <span class="tag accent">React</span>
-                        <span class="tag accent">D3.js</span>
-                        <span class="tag">Mapbox</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="projecte-card">
-                <div class="projecte-imatge" style="background-image: url('https://images.unsplash.com/photo-1618761767630-0104192b0051?q=80&w=800');"></div>
-                <div class="projecte-overlay"></div>
-                <div class="projecte-detalls">
-                    <h3>E-commerce Headless</h3>
-                    <p>Botiga online moderna i ràpida amb gestió de continguts desacoblada.</p>
-                    <div class="projecte-tags">
-                        <span class="tag accent">Next.js</span>
-                        <span class="tag">Shopify API</span>
-                        <span class="tag">GraphQL</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="projecte-card">
-                <div class="projecte-imatge" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800');"></div>
-                <div class="projecte-overlay"></div>
-                <div class="projecte-detalls">
-                    <h3>Panell d'Anàlisi Saas</h3>
-                    <p>Interfície d'administració minimalista per a la visualització de mètriques clau.</p>
-                    <div class="projecte-tags">
-                        <span class="tag accent">Vue.js</span>
-                        <span class="tag">Tailwind CSS</span>
-                        <span class="tag accent">Firebase</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonis" class="testimonis">
-        <h2>Què diuen de mi</h2>
-        <div class="testimonis-grid">
-            <div class="testimoni-card">
-                <p class="testimoni-text">En Joan té una habilitat única per traduir els nostres requeriments empresarials en una interfície preciosa i un codi impecable. Va superar totes les nostres expectatives.</p>
-                <div class="testimoni-autor">
-                    <div class="autor-avatar"></div> <div class="autor-info">
-                        <h5>Marta Rovira</h5>
-                        <p>CEO de TechNova Solutions</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimoni-card">
-                <p class="testimoni-text">Treballar amb en Joan va ser un plaer. La seva atenció al detall en el disseny UI i la seva rapidesa en l'execució del frontend ens van permetre llançar el producte abans del previst.</p>
-                <div class="testimoni-autor">
-                    <div class="autor-avatar"></div> <div class="autor-info">
-                        <h5>Oriol Costa</h5>
-                        <p>Product Manager a PixelPerfect</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="laboratori" class="laboratori">
-        <h2>El meu Laboratori de Codi</h2>
-        <h3>Fragments d'experimentació i solucions tècniques</h3>
-        
-        <div class="code-grid" id="code-container">
-            </div>
-    </section>
-
-    <section id="contacte" class="contacte">
-        <h2>Creem alguna cosa <span class="gradient-text">increïble</span> junts?</h2>
-        <p>Estic obert a noves oportunitats, col·laboracions reptadores i idees innovadores. Tens un projecte en ment? Contacta'm.</p>
-        
-        <a href="mailto:joan.garcia.pages@email.com" class="contact-email">joan.garcia.pages@email.com</a>
-        
-        <div class="contact-links">
-            <a href="#" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" target="_blank" class="social-link" title="Dribbble"><i class="fab fa-dribbble"></i></a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Joan Garcia Pagès. Fet amb <i class="fas fa-heart" style="color:#ff6b6b"></i> a Girona. Tots els drets reservats.</p>
-    </footer>
-    <script>
-        /* =========================================
-           1. GESTIÓ DE TEMES (CLAR / FOSC)
-           ========================================= */
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        const themeIcon = themeToggleBtn.querySelector('i');
-
-        // Funció per actualitzar la icona del botó
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-sun'; // Si és fosc, mostrem el sol per canviar a clar
-            } else {
-                themeIcon.className = 'fas fa-moon'; // Si és clar, mostrem la lluna per canviar a fosc
-            }
-        }
-
-        // Carregar tema guardat o detectar preferència del sistema
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        let currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-        
-        // Aplicar tema inicial
-        htmlElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        // Listener del botó
-        themeToggleBtn.addEventListener('click', () => {
-            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
-            htmlElement.setAttribute('data-theme', currentTheme);
-            localStorage.setItem('theme', currentTheme);
-            updateThemeIcon(currentTheme);
-            
-            // Re-inicialitzar partícules per canviar-ne el color
-            initParticles();
-        });
-
-        /* =========================================
-           2. SISTEMA DE PARTÍCULES ADAPTATIU
-           ========================================= */
-        const canvas = document.getElementById('particle-bg');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x; 
-                this.y = y;
-                this.directionX = directionX; 
-                this.directionY = directionY;
-                this.size = size; 
-                this.color = color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-                this.x += this.directionX; 
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        function initParticles() {
-            particlesArray = [];
-            // Detectar color basat en el tema actual
-            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
-            const particleColor = isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.3)';
-            
-            let numberOfParticles = (canvas.height * canvas.width) / 10000;
-            for (let i=0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 0.5;
-                let x = (Math.random() * (innerWidth - size * 2));
-                let y = (Math.random() * (innerHeight - size * 2));
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, particleColor));
-            }
-        }
-
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-            ctx.clearRect(0,0,innerWidth, innerHeight);
-            for (let i=0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-        }
-        
-        initParticles();
-        animateParticles();
-        
-        window.addEventListener('resize', () => { 
-            canvas.width = innerWidth; 
-            canvas.height = innerHeight; 
-            initParticles(); 
-        });
-
-        /* =========================================
-           3. CÀRREGA DINÀMICA DEL LABORATORI
-           ========================================= */
-        const codiSnippets = [
-            { 
-                title: "React Theme Provider", 
-                type: "JSX", 
-                codi: "const ThemeContext = createContext();\nexport const ThemeProvider = ({ children }) => {\n  const [theme, setTheme] = useState('dark');\n  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');\n  return (\n    <ThemeContext.Provider value={{ theme, toggleTheme }}>\n      <div data-theme={theme}>{children}</div>\n    </ThemeContext.Provider>\n  );\n}" 
-            },
-            { 
-                title: "GSAP ScrollReveal", 
-                type: "JS", 
-                codi: "gsap.registerPlugin(ScrollTrigger);\ngsap.utils.toArray('.bento-card').forEach(card => {\n  gsap.from(card, {\n    scrollTrigger: card,\n    opacity: 0, y: 50, duration: 1,\n    ease: 'power3.out'\n  });\n});" 
-            },
-            { 
-                title: "Sass Glassmorphism Mixin", 
-                type: "SCSS", 
-                codi: "@mixin glass-panel($bg-color: rgba(22, 22, 25, 0.7), $blur: 20px) {\n  background-color: $bg-color;\n  backdrop-filter: blur($blur);\n  border: 1px solid rgba(127, 127, 127, 0.2);\n  border-radius: 20px;\n}" 
-            }
-        ];
-
-        const codeContainer = document.getElementById('code-container');
-        if (codeContainer) {
-            codiSnippets.forEach(snippet => {
-                const codeCard = document.createElement('div');
-                codeCard.className = 'code-snippet';
-                codeCard.innerHTML = `
-                    <div class="code-header">
-                        <span class="code-title">${snippet.title}</span>
-                        <span class="code-type">${snippet.type}</span>
-                    </div>
-                    <div class="code-body">
-                        <pre><code>${snippet.codi}</code></pre>
-                    </div>
-                `;
-                codeContainer.appendChild(codeCard);
-            });
-        }
-
-        /* =========================================
-           4. GESTIÓ ACTIVA DEL MENÚ (SCROLL SPY BÀSIC)
-           ========================================= */
-        const navLinksArray = document.querySelectorAll('.nav-links a');
-        
-        navLinksArray.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinksArray.forEach(otherLink => otherLink.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
+<script>
+  function mostrarMissatge() {
+    document.getElementById('msg').innerText =
+      "Gràcies per visitar el meu CV! Estic obert a noves oportunitats 🚀";
+  }
+</script>
 
 </body>
 </html>
